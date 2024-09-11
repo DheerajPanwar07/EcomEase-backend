@@ -36,7 +36,7 @@ namespace EcomEase.Controller
 		public ActionResult Login(UserLogin values)
 		{
 			string res = _ecomEase.LogIn(values);
-			if (res != "please Enter details")
+			if (res != "You are deactivated please wait for admin Activation")
 			{
 				Respond obj = new Respond()
 				{
@@ -47,7 +47,17 @@ namespace EcomEase.Controller
 				};
 				return Ok(obj);
 			}
-			return BadRequest();
+			else
+			{
+				Respond obj = new Respond()
+				{
+					success = false,
+					message = "login failed",
+					Data = res,
+				};
+				return Ok(obj);
+			}
+			
 		}
 
 

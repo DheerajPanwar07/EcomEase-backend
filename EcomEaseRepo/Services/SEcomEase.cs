@@ -125,6 +125,7 @@ namespace EcomEaseRepo.Services
 			int rollId = _ecomEaseContext.UserRegistrations.Where(u => u.email == values.Email && u.password == values.Password).Select(Id => Id.roleId).FirstOrDefault();
 			int userId = _ecomEaseContext.UserRegistrations.Where(u => u.email == values.Email && u.password == values.Password).Select(Id => Id.userid).FirstOrDefault();
 			bool action= _ecomEaseContext.UserRegistrations.Where(u=>u.userid == userId).Select(u=>u.isActive).FirstOrDefault();	
+
 			if (rollId != 0 && action==true)
 			{
 				var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
@@ -147,7 +148,7 @@ namespace EcomEaseRepo.Services
 				return token;
 			}
 			{
-				return "please Enter details";
+				return "You are deactivated please wait for admin Activation";
 			}
 		}
 
